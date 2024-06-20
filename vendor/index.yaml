@@ -1,0 +1,17 @@
+vendors:
+  - id: example
+    name: Example
+    vendorID: 0
+    draft: true
+    
+  - id: adeunis
+    name: Adeunis
+    vendorID: 16
+
+  - id: dragino
+    name: Dragino Technology Co., Limited
+    vendorID: 676
+    
+  - id: milesight-iot
+    name: Milesight IoT Co., Ltd
+    vendorID: 601 
