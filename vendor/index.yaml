@@ -15,3 +15,7 @@ vendors:
   - id: milesight-iot
     name: Milesight IoT Co., Limited
     vendorID: 601 
+    
+  - id: netvox
+    name: Netvox Technology Co., Limited
+    vendorID: 289
