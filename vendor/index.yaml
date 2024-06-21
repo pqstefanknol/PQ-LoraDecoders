@@ -5,7 +5,7 @@ vendors:
     draft: true
     
   - id: adeunis
-    name: Adeunis
+    name: Adeunis Co., Limited
     vendorID: 16
 
   - id: dragino
@@ -13,5 +13,5 @@ vendors:
     vendorID: 676
     
   - id: milesight-iot
-    name: Milesight IoT Co., Ltd
+    name: Milesight IoT Co., Limited
     vendorID: 601 
