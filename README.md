@@ -1,4 +1,7 @@
-This is for actively used devices in the Purple-Q lora network, to easily import the decoder templates into chirpstack.
+This is for actively used devices in the Purple-Q lora network, to easily import the decoder templates into chirpstack. They are customized for Europe 868 and are checked for similar naming schemes, to keep everything professional and uniform:
+
+    name: Vendor Sensortype - Short description if applicable
+  regions that are not used are commented out so that they can be reused when necessary.
 
   On a chirpstack server:
   
