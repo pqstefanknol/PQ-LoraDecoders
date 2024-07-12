@@ -3,6 +3,7 @@ This is for actively used devices in the Purple-Q lora network, to easily import
     name: Vendor Sensortype - Short description if applicable
   Regions that are not used are commented out so that they can be reused when necessary.
 
+
  
   On a chirpstack server:
   
