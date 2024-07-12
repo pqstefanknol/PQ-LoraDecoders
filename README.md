@@ -23,4 +23,16 @@
   
     loraimport
   
-  ## For ease of use.
+  ## For ease of use. These are located in: /usr/local/bin/
+    gitpull:
+        rm -rf /tmp/lorawan-devices
+        echo "Making sure the target directory is empty"
+        echo "Pulling from github"
+        git clone https://github.com/pqstefanknol/PQ-LoraDecoders /tmp/lorawan-devices
+
+    loraimport:
+        echo "Importing device templates from /tmp/lorawan-devices"
+        chirpstack -c /etc/chirpstack import-legacy-lorawan-devices-repository -d /tmp/lorawan-devices
+
+
+        
