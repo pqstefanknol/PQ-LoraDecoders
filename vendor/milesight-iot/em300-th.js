@@ -27,7 +27,7 @@ function Decoder(bytes, port) {
 
         else if (channel_id === 0x03 && channel_type === 0x67) {
 
-            decoded.temperature = readInt16LE(bytes.slice(i, i + 2)) / 10;
+            decoded.temperature_1 = readInt16LE(bytes.slice(i, i + 2)) / 10;
 
             i += 2;
 
@@ -37,7 +37,7 @@ function Decoder(bytes, port) {
 
         else if (channel_id === 0x04 && channel_type === 0x68) {
 
-            decoded.humidity = bytes[i] / 2;
+            decoded.humidity_1 = bytes[i] / 2;
 
             i += 1;
 
@@ -61,16 +61,16 @@ function normalizeUplink(input) {
     var data = {};
     var air = {};
 
-    if (input.data.temperature) {
-        air.temperature_1 = input.data.temperature;
+    if (input.data.temperature_1) {
+        air.temperature_1 = input.data.temperature_1;
     }
 
-    if (input.data.humidity) {
-        air.humidity_1 = input.data.humidity;
+    if (input.data.humidity_1) {
+        air.humidity_1 = input.data.humidity_1;
     }
 
     if (Object.keys(air).length > 0) {
-        data.air_1 = air;
+        data.air_1 = air_1;
     }
 
     if (input.data.battery) {
