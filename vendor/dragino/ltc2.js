@@ -5,39 +5,39 @@ var bytes = input.bytes;
    var data = {}; 
    var Ext= bytes[2]&0x0F; 
    data.Ext=Ext;
- data.BatV= ((bytes[0]<<8 | bytes[1]) & 0x3FFF)/1000; 
+ data.battery= ((bytes[0]<<8 | bytes[1]) & 0x3FFF)/1000;
    if(Ext==0x01) 
  { 
    if((bytes[3]==0x80) && (bytes[4]==0x01))
    {
-   data.Temp_Channel1="NULL";
+   data.temperature_1="NULL";
    }
    else if((bytes[3]<<8 | bytes[4])>=0xE4A8)
    {
-   data.Temp_Channel1=parseFloat(((bytes[3]<<24>>16 | bytes[4])/100).toFixed(2));
+   data.temperature_1=parseFloat(((bytes[3]<<24>>16 | bytes[4])/100).toFixed(2));
    }
    else
    {
-   data.Temp_Channel1=parseFloat(((bytes[3]<<8 | bytes[4])/100).toFixed(2));   
+   data.temperature_1=parseFloat(((bytes[3]<<8 | bytes[4])/100).toFixed(2));
    }
   
    if((bytes[5]==0x80) && (bytes[6]==0x01))
    {
-   data.Temp_Channel2="NULL";
+   data.temperature_2="NULL";
    } 
    else if((bytes[5]<<8 | bytes[6])>=0xE4A8)
    {
-   data.Temp_Channel2=parseFloat(((bytes[5]<<8 | bytes[6])/100).toFixed(2));   
+   data.temperature_2=parseFloat(((bytes[5]<<8 | bytes[6])/100).toFixed(2));
    }
    else
    {
-   data.Temp_Channel2=parseFloat(((bytes[5]<<24>>16 | bytes[6])/100).toFixed(2));
+   data.temperature_2=parseFloat(((bytes[5]<<24>>16 | bytes[6])/100).toFixed(2));
    }
  } 
  else if(Ext==0x02) 
  { 
- data.Temp_Channel1=parseFloat(((bytes[3]<<24>>16 | bytes[4])/10).toFixed(1)); 
- data.Temp_Channel2=parseFloat(((bytes[5]<<24>>16 | bytes[6])/10).toFixed(1)); 
+ data.temperature_1=parseFloat(((bytes[3]<<24>>16 | bytes[4])/10).toFixed(1));
+ data.temperature_2=parseFloat(((bytes[5]<<24>>16 | bytes[6])/10).toFixed(1));
  } 
  else if(Ext==0x03) 
  { 

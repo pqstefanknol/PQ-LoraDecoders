@@ -25,27 +25,27 @@ function Decoder(bytes, port) {
 
         // VOLTAGE
         if (channel_id === 0x03 && channel_type === 0x74) {
-            decoded.voltage = readUInt16LE(bytes.slice(i, i + 2)) / 10;
+            decoded.voltage_1 = readUInt16LE(bytes.slice(i, i + 2)) / 10;
             i += 2;
         }
         // POWER FACTOR
         else if (channel_id === 0x05 && channel_type === 0x81) {
-            decoded.power = bytes[i];
+            decoded.power_1 = bytes[i];
             i += 1;
         }
         // ENERGY SUM
         else if (channel_id === 0x06 && channel_type == 0x83) {
-            decoded.energy = readUInt32LE(bytes.slice(i, i + 4));
+            decoded.energy_1 = readUInt32LE(bytes.slice(i, i + 4));
             i += 4;
         }
         // CURRENT
         else if (channel_id === 0x07 && channel_type == 0xc9) {
-            decoded.current = readUInt16LE(bytes.slice(i, i + 2));
+            decoded.current_1 = readUInt16LE(bytes.slice(i, i + 2));
             i += 2;
         }
         // STATE
         else if (channel_id === 0x08 && channel_type == 0x70) {
-            decoded.button = bytes[i] == 1 ? "open" : "close";
+            decoded.button_1 = bytes[i] == 1 ? "on" : "off";
             i += 1;
         } else {
             break;

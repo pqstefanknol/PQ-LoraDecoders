@@ -8,45 +8,45 @@ function decodeUplink(input) {
 if(mode=='3')
 {
   data.Work_mode="DS18B20";
-  data.BatV=(bytes[0]<<8 | bytes[1])/1000;
+  data.battery=(bytes[0]<<8 | bytes[1])/1000;
   data.ALARM_status=(bytes[6] & 0x01)? "TRUE":"FALSE";
   
   if((bytes[2]==0xff)&& (bytes[3]==0xff))
   {
-    data.Temp_Red="NULL";
+    data.temperature_1="NULL";
   }
   else
   {
-    data.Temp_Red= parseFloat(((bytes[2]<<24>>16 | bytes[3])/10).toFixed(1));
+    data.temperature_1= parseFloat(((bytes[2]<<24>>16 | bytes[3])/10).toFixed(1));
   }
 
   if((bytes[7]==0xff)&& (bytes[8]==0xff))
   {
-    data.Temp_White="NULL";
+    data.temperature_2="NULL";
   }
   else
   {
-  	data.Temp_White=parseFloat(((bytes[7]<<24>>16 | bytes[8])/10).toFixed(1));
+  	data.temperature_2=parseFloat(((bytes[7]<<24>>16 | bytes[8])/10).toFixed(1));
   }
   
   if((bytes[9]==0xff)&& (bytes[10]==0xff))
   {
-    data.Temp_Black="NULL";
+    data.temperature_3="NULL";
   }
   else
   {
-  	data.Temp_Black=parseFloat(((bytes[9]<<24>>16 | bytes[10])/10) .toFixed(1)); 
+  	data.temperature_3=parseFloat(((bytes[9]<<24>>16 | bytes[10])/10) .toFixed(1));
   }
 }
 else if(mode=='31')
 {
   data.Work_mode="ALARM";
-  data.Temp_Red_MIN= bytes[4]<<24>>24;
-  data.Temp_Red_MAX= bytes[5]<<24>>24; 
-  data.Temp_White_MIN= bytes[7]<<24>>24;
-  data.Temp_White_MAX= bytes[8]<<24>>24; 
-  data.Temp_Black_MIN= bytes[9]<<24>>24;
-  data.Temp_Black_MAX= bytes[10]<<24>>24;  
+  data.temperature_1_min= bytes[4]<<24>>24;
+  data.temperature_1_max= bytes[5]<<24>>24;
+  data.temperature_2_min= bytes[7]<<24>>24;
+  data.temperature_2_max= bytes[8]<<24>>24;
+  data.temperature_3_min= bytes[9]<<24>>24;
+  data.temperature_3_max= bytes[10]<<24>>24;
 }
 
   if(bytes.length==11)

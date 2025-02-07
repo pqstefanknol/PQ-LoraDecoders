@@ -120,7 +120,7 @@ switch( field_no )
 
 case 0: 
 
-payload.temperature = bytes[bytes_pos_] & 0x7F;
+payload.temperature_1 = bytes[bytes_pos_] & 0x7F;
 
 // Temperature is negative
 
@@ -128,7 +128,7 @@ if( (bytes[bytes_pos_] & 0x80) > 0 )
 
 {
 
-payload.temperature	-= 128;
+payload.temperature_1	-= 128;
 
 }
 
@@ -278,9 +278,9 @@ break;
 
 case 6: 
 
-payload.battery_level	= bytes[bytes_pos_++] << 8;
+payload.battery	= bytes[bytes_pos_++] << 8;
 
-payload.battery_level	|= bytes[bytes_pos_++];
+payload.battery	|= bytes[bytes_pos_++];
 
 break;
 

@@ -32,7 +32,7 @@ function Decoder(bytes, port) {
     // TEMPERATURE
     else if (channel_id === 0x03 && channel_type === 0x67) {
       // ℃
-      decoded.temperature = readInt16LE(bytes.slice(i, i + 2)) / 10;
+      decoded.temperature_1 = readInt16LE(bytes.slice(i, i + 2)) / 10;
       i += 2;
 
       // ℉
@@ -41,34 +41,34 @@ function Decoder(bytes, port) {
     }
     // HUMIDITY
     else if (channel_id === 0x04 && channel_type === 0x68) {
-      decoded.humidity = bytes[i] / 2;
+      decoded.humidity_1 = bytes[i] / 2;
       i += 1;
     }
     // PIR
     else if (channel_id === 0x05 && channel_type === 0x6A) {
-      decoded.activity = readUInt16LE(bytes.slice(i, i + 2));
+      decoded.activity_1 = readUInt16LE(bytes.slice(i, i + 2));
       i += 2;
     }
     // LIGHT
     else if (channel_id === 0x06 && channel_type === 0x65) {
-      decoded.illumination = readUInt16LE(bytes.slice(i, i + 2));
-      decoded.infrared_and_visible = readUInt16LE(bytes.slice(i + 2, i + 4));
-      decoded.infrared = readUInt16LE(bytes.slice(i + 4, i + 6));
+      decoded.illumination_1 = readUInt16LE(bytes.slice(i, i + 2));
+      decoded.infrared_and_visible_1 = readUInt16LE(bytes.slice(i + 2, i + 4));
+      decoded.infrared_1 = readUInt16LE(bytes.slice(i + 4, i + 6));
       i += 6;
     }
     // CO2
     else if (channel_id === 0x07 && channel_type === 0x7D) {
-      decoded.co2 = readUInt16LE(bytes.slice(i, i + 2));
+      decoded.co2_1 = readUInt16LE(bytes.slice(i, i + 2));
       i += 2;
     }
     // TVOC
     else if (channel_id === 0x08 && channel_type === 0x7D) {
-      decoded.tvoc = readUInt16LE(bytes.slice(i, i + 2));
+      decoded.tvoc_1 = readUInt16LE(bytes.slice(i, i + 2));
       i += 2;
     }
     // PRESSURE
     else if (channel_id === 0x09 && channel_type === 0x73) {
-      decoded.pressure = readUInt16LE(bytes.slice(i, i + 2)) / 10;
+      decoded.pressure_1 = readUInt16LE(bytes.slice(i, i + 2)) / 10;
       i += 2;
     } else {
       break;

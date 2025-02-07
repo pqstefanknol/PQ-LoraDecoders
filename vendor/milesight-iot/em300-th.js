@@ -62,15 +62,15 @@ function normalizeUplink(input) {
     var air = {};
 
     if (input.data.temperature) {
-        air.temperature = input.data.temperature;
+        air.temperature_1 = input.data.temperature;
     }
 
     if (input.data.humidity) {
-        air.relativeHumidity = input.data.humidity;
+        air.humidity_1 = input.data.humidity;
     }
 
     if (Object.keys(air).length > 0) {
-        data.air = air;
+        data.air_1 = air;
     }
 
     if (input.data.battery) {

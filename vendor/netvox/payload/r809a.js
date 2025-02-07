@@ -77,7 +77,7 @@ function decodeUplink(input) {
 		data.Device = getDeviceName(input.bytes[1]);
 		if (input.bytes[2] === 0x01)
 		{
-			data.OnOff = (input.bytes[3] === 0x00) ? 'OFF' : 'ON';
+			data.OnOff = (input.bytes[3] === 0x00) ? 'off' : 'on';
 			data.Energy = (input.bytes[4]<<24 | input.bytes[5]<<16 | input.bytes[6]<<8 | input.bytes[7]);
 			data.OverCurrentAlarm = (input.bytes[8] === 0x00) ? 'No alarm' : 'Alarm';
 			data.DashCurrentAlarm = (input.bytes[9] === 0x00) ? 'No alarm' : 'Alarm';

@@ -108,8 +108,8 @@ function normalizeUplink(input) {
     data.push({
       air: {
         location: "indoor",
-        temperature: input.data.TempC_SHT,
-        relativeHumidity: input.data.Hum_SHT,
+        temperature_1: input.data.TempC_SHT,
+        humidity_1: input.data.Hum_SHT,
       }
     });
   }
@@ -118,7 +118,7 @@ function normalizeUplink(input) {
    var val = {
     air: {
       location: "outdoor",
-      temperature: input.data.TempC_DS
+      temperature_1: input.data.TempC_DS
     }
   }
   if (input.data.BatV) {

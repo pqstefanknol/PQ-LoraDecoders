@@ -30,7 +30,7 @@ function Decoder(bytes, port) {
         // TEMPERATURE
         else if (channel_id === 0x03 && channel_type === 0x67) {
             // ℃
-            decoded.temperature = readInt16LE(bytes.slice(i, i + 2)) / 10;
+            decoded.temperature_1 = readInt16LE(bytes.slice(i, i + 2)) / 10;
             i += 2;
 
             // ℉
@@ -39,57 +39,57 @@ function Decoder(bytes, port) {
         }
         // HUMIDITY
         else if (channel_id === 0x04 && channel_type === 0x68) {
-            decoded.humidity = bytes[i] / 2;
+            decoded.humidity_1 = bytes[i] / 2;
             i += 1;
         }
         // PIR
         else if (channel_id === 0x05 && channel_type === 0x00) {
-            decoded.pir = bytes[i] === 1 ? "trigger" : "idle";
+            decoded.pir_1 = bytes[i] === 1 ? "trigger" : "idle";
             i += 1;
         }
         // LIGHT
         else if (channel_id === 0x06 && channel_type === 0xCB) {
-            decoded.light_level = bytes[i];
+            decoded.light_level_1 = bytes[i];
             i += 1;
         }
         // CO2
         else if (channel_id === 0x07 && channel_type === 0x7D) {
-            decoded.co2 = readUInt16LE(bytes.slice(i, i + 2));
+            decoded.co2_1 = readUInt16LE(bytes.slice(i, i + 2));
             i += 2;
         }
         // TVOC
         else if (channel_id === 0x08 && channel_type === 0x7D) {
-            decoded.tvoc = readUInt16LE(bytes.slice(i, i + 2));
+            decoded.tvoc_1 = readUInt16LE(bytes.slice(i, i + 2));
             i += 2;
         }
         // PRESSURE
         else if (channel_id === 0x09 && channel_type === 0x73) {
-            decoded.pressure = readUInt16LE(bytes.slice(i, i + 2)) / 10;
+            decoded.pressure_1 = readUInt16LE(bytes.slice(i, i + 2)) / 10;
             i += 2;
         }
         // HCHO
         else if (channel_id === 0x0A && channel_type === 0x7D) {
-            decoded.hcho = readUInt16LE(bytes.slice(i, i + 2)) / 100;
+            decoded.hcho_1 = readUInt16LE(bytes.slice(i, i + 2)) / 100;
             i += 2;
         }
         // PM2.5
         else if (channel_id === 0x0B && channel_type === 0x7D) {
-            decoded.pm2_5 = readUInt16LE(bytes.slice(i, i + 2));
+            decoded.pm2_5_1 = readUInt16LE(bytes.slice(i, i + 2));
             i += 2;
         }
         // PM10
         else if (channel_id === 0x0C && channel_type === 0x7D) {
-            decoded.pm10 = readUInt16LE(bytes.slice(i, i + 2));
+            decoded.pm10_1 = readUInt16LE(bytes.slice(i, i + 2));
             i += 2;
         }
         // O3
         else if (channel_id === 0x0D && channel_type === 0x7D) {
-            decoded.o3 = readUInt16LE(bytes.slice(i, i + 2)) / 100;
+            decoded.o3_1 = readUInt16LE(bytes.slice(i, i + 2)) / 100;
             i += 2;
         }
         // BEEP
         else if (channel_id === 0x0E && channel_type === 0x01) {
-            decoded.beep = bytes[i] === 1 ? "yes" : "no";
+            decoded.beep_1 = bytes[i] === 1 ? "yes" : "no";
             i += 1;
         } else {
             break;

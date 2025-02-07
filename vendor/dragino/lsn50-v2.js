@@ -7,23 +7,23 @@ function decodeUplink(input) {
 {
   var decode = {};
   
-  decode.Digital_IStatus= (input.bytes[6] & 0x02)? "H":"L";
+  decode.digital_1= (input.bytes[6] & 0x02)? "on":"off";
   
   if(mode!=2)
   {
     decode.BatV= (input.bytes[0]<<8 | input.bytes[1])/1000;
     if((input.bytes[2]==0x7f)&&(input.bytes[3]==0xff))
-      decode.TempC1= "NULL";
+      decode.temperature_1= "NULL";
     else
-      decode.TempC1= parseFloat(((input.bytes[2]<<24>>16 | input.bytes[3])/10).toFixed(1));
+      decode.temperature_1= parseFloat(((input.bytes[2]<<24>>16 | input.bytes[3])/10).toFixed(1));
     if(mode!=8)
-      decode.ADC_CH0V= (input.bytes[4]<<8 | input.bytes[5])/1000;
+      decode.V_1= (input.bytes[4]<<8 | input.bytes[5])/1000;
   }
   
   if((mode!=5)&&(mode!=6))
   {
-  	decode.EXTI_Trigger= (input.bytes[6] & 0x01)? "TRUE":"FALSE";
-    decode.Door_status= (input.bytes[6] & 0x80)? "CLOSE":"OPEN";
+  	decode.trigger_1= (input.bytes[6] & 0x01)? "TRUE":"FALSE";
+    decode.digital_1= (input.bytes[6] & 0x80)? "off":"on";
   }
   
   if(mode=='0')
@@ -34,14 +34,14 @@ function decodeUplink(input) {
     else 
     {
       if(((input.bytes[7]==0x7f)&&(input.bytes[8]==0xff))||((input.bytes[7]==0xff)&&(input.bytes[8]==0xff)))
-        decode.TempC_SHT= "NULL";
+        decode.temperature_1= "NULL";
       else
-        decode.TempC_SHT= parseFloat(((input.bytes[7]<<24>>16 | input.bytes[8])/10).toFixed(1));
+        decode.temperature_1= parseFloat(((input.bytes[7]<<24>>16 | input.bytes[8])/10).toFixed(1));
   
       if((input.bytes[9]==0xff)&&(input.bytes[10]==0xff))
-        decode.Hum_SHT= "NULL";
+        decode.humidity_1= "NULL";
       else
-        decode.Hum_SHT= parseFloat(((input.bytes[9]<<8 | input.bytes[10])/10).toFixed(1));
+        decode.humidity_1= parseFloat(((input.bytes[9]<<8 | input.bytes[10])/10).toFixed(1));
     }
   }
   else if(mode=='1')
@@ -59,37 +59,37 @@ function decodeUplink(input) {
   else if(mode=='2')
   {
     decode.Work_mode="3ADC+IIC";
-    decode.BatV= input.bytes[11]/10;
-    decode.ADC_CH0V= (input.bytes[0]<<8 | input.bytes[1])/1000;
-    decode.ADC_CH1V= (input.bytes[2]<<8 | input.bytes[3])/1000;
-    decode.ADC_CH4V= (input.bytes[4]<<8 | input.bytes[5])/1000;
+    decode.battery= input.bytes[11]/10;
+    decode.V_1= (input.bytes[0]<<8 | input.bytes[1])/1000;
+    decode.V_2= (input.bytes[2]<<8 | input.bytes[3])/1000;
+    decode.V_4= (input.bytes[4]<<8 | input.bytes[5])/1000;
     if((input.bytes[9]<<8 | input.bytes[10])===0)
       decode.Illum= (input.bytes[7]<<8 | input.bytes[8]);
     else 
     {
       if(((input.bytes[7]==0x7f)&&(input.bytes[8]==0xff))||((input.bytes[7]==0xff)&&(input.bytes[8]==0xff)))
-        decode.TempC_SHT= "NULL";
+        decode.temperature_1= "NULL";
       else
-        decode.TempC_SHT= parseFloat(((input.bytes[7]<<24>>16 | input.bytes[8])/10).toFixed(1));
+        decode.temperature_1= parseFloat(((input.bytes[7]<<24>>16 | input.bytes[8])/10).toFixed(1));
   
       if((input.bytes[9]==0xff)&&(input.bytes[10]==0xff))
-        decode.Hum_SHT= "NULL";
+        decode.humidity_1= "NULL";
       else
-        decode.Hum_SHT= parseFloat(((input.bytes[9]<<8 | input.bytes[10])/10).toFixed(1));
+        decode.humidity_1= parseFloat(((input.bytes[9]<<8 | input.bytes[10])/10).toFixed(1));
     }
   }
   else if(mode=='3')
   {
     decode.Work_mode="3DS18B20";
     if((input.bytes[7]==0x7f)&&(input.bytes[8]==0xff))
-      decode.TempC2= "NULL";
+      decode.temperature_2= "NULL";
     else  
-      decode.TempC2= parseFloat(((input.bytes[7]<<24>>16 | input.bytes[8])/10).toFixed(1));
+      decode.temperature_2= parseFloat(((input.bytes[7]<<24>>16 | input.bytes[8])/10).toFixed(1));
       
     if((input.bytes[9]==0x7f)&&(input.bytes[10]==0xff))
-      decode.TempC3= "NULL";  
+      decode.temperature_3= "NULL";
     else
-      decode.TempC3= parseFloat(((input.bytes[9]<<24>>16 | input.bytes[10])/10).toFixed(1));
+      decode.temperature_3= parseFloat(((input.bytes[9]<<24>>16 | input.bytes[10])/10).toFixed(1));
   }
   else if(mode=='4')
   {
@@ -105,30 +105,30 @@ function decodeUplink(input) {
   {
     decode.Work_mode="3Interrupt";
     decode.EXTI1_Trigger= (input.bytes[6] & 0x01)? "TRUE":"FALSE";  
-    decode.EXTI1_Status= (input.bytes[6] & 0x80)? "CLOSE":"OPEN"; 
+    decode.digital_1= (input.bytes[6] & 0x80)? "off":"on";
     decode.EXTI2_Trigger= (input.bytes[7] & 0x10)? "TRUE":"FALSE";
-    decode.EXTI2_Status= (input.bytes[7] & 0x01)? "CLOSE":"OPEN"; 
+    decode.digital_2= (input.bytes[7] & 0x01)? "off":"on";
     decode.EXTI3_Trigger= (input.bytes[8] & 0x10)? "TRUE":"FALSE";
-    decode.EXTI3_Status= (input.bytes[8] & 0x01)? "CLOSE":"OPEN";
+    decode.digital_3= (input.bytes[8] & 0x01)? "off":"on";
   }
   else if(mode=='7')
   {
     decode.Work_mode="3ADC+1DS18B20";
-    decode.ADC_CH1V= (input.bytes[7]<<8 | input.bytes[8])/1000;
-    decode.ADC_CH4V= (input.bytes[9]<<8 | input.bytes[10])/1000;  
+    decode.V_1= (input.bytes[7]<<8 | input.bytes[8])/1000;
+    decode.V_4= (input.bytes[9]<<8 | input.bytes[10])/1000;
   }
   else if(mode=='8')
   {
     decode.Work_mode="3DS18B20+2Count";
     if((input.bytes[4]==0x7f)&&(input.bytes[5]==0xff))
-      decode.TempC2= "NULL";
+      decode.temperature_2= "NULL";
     else  
-      decode.TempC2= parseFloat(((input.bytes[4]<<24>>16 | input.bytes[5])/10).toFixed(1));
+      decode.temperature_2= parseFloat(((input.bytes[4]<<24>>16 | input.bytes[5])/10).toFixed(1));
       
     if((input.bytes[7]==0x7f)&&(input.bytes[8]==0xff))
-      decode.TempC3= "NULL";  
+      decode.temperature_3= "NULL";
     else
-      decode.TempC3= parseFloat(((input.bytes[7]<<24>>16 | input.bytes[8])/10).toFixed(1));
+      decode.temperature_3= parseFloat(((input.bytes[7]<<24>>16 | input.bytes[8])/10).toFixed(1));
       
     decode.Count1= (input.bytes[9]<<24 | input.bytes[10]<<16 | input.bytes[11]<<8 | input.bytes[12])>>>0;
     decode.Count2= (input.bytes[13]<<24 | input.bytes[14]<<16 | input.bytes[15]<<8 | input.bytes[16])>>>0;

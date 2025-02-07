@@ -26,28 +26,28 @@ function Decoder(bytes, fport) {
 
         // Digital Input
         if (channel_id === 0x03 && channel_type === 0x00) {
-            decoded.digital_input_1 = bytes[i] === 0 ? "off" : "on";
+            decoded.digital_1 = bytes[i] === 0 ? "off" : "on";
             i += 1;
         }
         else if (channel_id === 0x04 && channel_type === 0x00) {
-            decoded.digital_input_2 = bytes[i] === 0 ? "off" : "on";
+            decoded.digital_2 = bytes[i] === 0 ? "off" : "on";
             i += 1;
         }
         else if (channel_id === 0x05 && channel_type === 0x00) {
-            decoded.digital_input_3 = bytes[i] === 0 ? "off" : "on";
+            decoded.digital_3 = bytes[i] === 0 ? "off" : "on";
             i += 1;
         }
         else if (channel_id === 0x06 && channel_type === 0x00) {
-            decoded.digital_input_4 = bytes[i] === 0 ? "off" : "on";
+            decoded.digital_4 = bytes[i] === 0 ? "off" : "on";
             i += 1;
         }
         // Digital Output
         else if (channel_id === 0x07 && channel_type === 0x01) {
-            decoded.digital_output_1 = bytes[i] === 0 ? "off" : "on";
+            decoded.output_1 = bytes[i] === 0 ? "off" : "on";
             i += 1;
         }
         else if (channel_id === 0x08 && channel_type === 0x01) {
-            decoded.digital_output_2 = bytes[i] === 0 ? "off" : "on";
+            decoded.output_2 = bytes[i] === 0 ? "off" : "on";
             i += 1;
         }
         // Digital Input as Counter
@@ -69,32 +69,32 @@ function Decoder(bytes, fport) {
         }
         // PT100
         else if (channel_id === 0x09 && channel_type === 0x67) {
-            decoded.pt100_1 = readInt16LE(bytes.slice(i, i + 2)) / 10;
+            decoded.temperature_1 = readInt16LE(bytes.slice(i, i + 2)) / 10;
             i += 2;
         }
         else if (channel_id === 0x0a && channel_type === 0x67) {
-            decoded.pt100_2 = readInt16LE(bytes.slice(i, i + 2)) / 10;
+            decoded.temperature_2 = readInt16LE(bytes.slice(i, i + 2)) / 10;
             i += 2;
         }
         // ADC CHANNEL
         else if (channel_id === 0x0b && channel_type === 0x02) {
-            decoded.analog_input_adc_1 = readUInt32LE(bytes.slice(i, i + 2)) / 100;
+            decoded.mA_1 = readUInt32LE(bytes.slice(i, i + 2)) / 100;
             i += 4;
             continue;
         }
         else if (channel_id === 0x0c && channel_type === 0x02) {
-            decoded.analog_input_adc_2 = readUInt32LE(bytes.slice(i, i + 2)) / 100;
+            decoded.mA_2 = readUInt32LE(bytes.slice(i, i + 2)) / 100;
             i += 4;
             continue;
         }
         // ADC CHANNEL for voltage
         else if (channel_id === 0x0d && channel_type === 0x02) {
-            decoded.analog_input_adv_1 = readUInt32LE(bytes.slice(i, i + 2)) / 100;
+            decoded.V_1 = readUInt32LE(bytes.slice(i, i + 2)) / 100;
             i += 4;
             continue;
         }
         else if (channel_id === 0x0e && channel_type === 0x02) {
-            decoded.analog_input_adv_2 = readUInt32LE(bytes.slice(i, i + 2)) / 100;
+            decoded.V_2 = readUInt32LE(bytes.slice(i, i + 2)) / 100;
             i += 4;
             continue;
         }

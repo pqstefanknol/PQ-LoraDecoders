@@ -22,48 +22,48 @@ function Decoder(bytes, port) {
         }
         // TEMPERATURE(CHANNEL 1 SENSOR)
         else if (channel_id === 0x03 && channel_type === 0x67) {
-            decoded.temperature_chn1 = readInt16LE(bytes.slice(i, i + 2)) / 10;
+            decoded.temperature_1 = readInt16LE(bytes.slice(i, i + 2)) / 10;
             i += 2;
         }
         // MAGNET STATUS(CHANNEL 1 SENSOR)
         else if (channel_id === 0x03 && channel_type === 0x00) {
-            decoded.magnet_chn1 = bytes[i] === 0 ? "closed" : "opened";
+            decoded.digital_1 = bytes[i] === 0 ? "on" : "off";
             i += 1;
         }
         // TEMPERATURE(CHANNEL 2 SENSOR)
         else if (channel_id === 0x04 && channel_type === 0x67) {
-            decoded.temperature_chn2 = readInt16LE(bytes.slice(i, i + 2)) / 10;
+            decoded.temperature_2 = readInt16LE(bytes.slice(i, i + 2)) / 10;
             i += 2;
         }
         // MAGNET STATUS(CHANNEL 2 SENSOR)
         else if (channel_id === 0x04 && channel_type === 0x00) {
-            decoded.magnet_chn2 = bytes[i] === 0 ? "closed" : "opened";
+            decoded.digital_2 = bytes[i] === 0 ? "on" : "off";
             i += 1;
         }
         // TEMPERATURE(CHANNEL 1 SENSOR) ALARM
         else if (channel_id === 0x83 && channel_type === 0x67) {
-            decoded.temperature_chn1 = readInt16LE(bytes.slice(i, i + 2)) / 10;
-            decoded.temperature_chn1_alarm = readAlarmType(bytes[i + 2]);
+            decoded.temperature_1 = readInt16LE(bytes.slice(i, i + 2)) / 10;
+            decoded.temperature_1_alarm = readAlarmType(bytes[i + 2]);
             i += 3;
         }
         // TEMPERATURE(CHANNEL 1 SENSOR) ALARM
         else if (channel_id === 0x93 && channel_type === 0xd7) {
-            decoded.temperature_chn1 = readInt16LE(bytes.slice(i, i + 2)) / 10;
-            decoded.temperature_chn1_change = readInt16LE(bytes.slice(i + 2, i + 4)) / 100;
-            decoded.temperature_chn1_alarm = readAlarmType(bytes[i + 4]);
+            decoded.temperature_1 = readInt16LE(bytes.slice(i, i + 2)) / 10;
+            decoded.temperature_1_change = readInt16LE(bytes.slice(i + 2, i + 4)) / 100;
+            decoded.temperature_1_alarm = readAlarmType(bytes[i + 4]);
             i += 5;
         }
         // TEMPERATURE(CHANNEL 2 SENSOR) ALARM
         else if (channel_id === 0x84 && channel_type === 0x67) {
-            decoded.temperature_chn2 = readInt16LE(bytes.slice(i, i + 2)) / 10;
-            decoded.temperature_chn2_alarm = readAlarmType(bytes[i + 2]);
+            decoded.temperature_2 = readInt16LE(bytes.slice(i, i + 2)) / 10;
+            decoded.temperature_2_alarm = readAlarmType(bytes[i + 2]);
             i += 3;
         }
         // TEMPERATURE(CHANNEL 2 SENSOR) ALARM
         else if (channel_id === 0x94 && channel_type === 0xd7) {
-            decoded.temperature_chn2 = readInt16LE(bytes.slice(i, i + 2)) / 10;
-            decoded.temperature_chn2_change = readInt16LE(bytes.slice(i + 2, i + 4)) / 100;
-            decoded.temperature_chn2_alarm = readAlarmType(bytes[i + 4]);
+            decoded.temperature_2 = readInt16LE(bytes.slice(i, i + 2)) / 10;
+            decoded.temperature_2_change = readInt16LE(bytes.slice(i + 2, i + 4)) / 100;
+            decoded.temperature_2_alarm = readAlarmType(bytes[i + 4]);
             i += 5;
         }
         // HISTORICAL DATA
@@ -106,11 +106,11 @@ function decodeHistoricalData(bytes, i, data, mask, channel) {
             data[`temperature_${channel}`] = readInt16LE(bytes.slice(i, i + 2)) / 10;
             break;
         case 0x05:
-            data[`magnet_${channel}`] = readInt16LE(bytes.slice(i, i + 2)) === 0 ? "closed" : "opened";
-            data[`magnet_${channel}_alarm`] = "threshold";
+            data[`digital_${channel}`] = readInt16LE(bytes.slice(i, i + 2)) === 0 ? "on" : "off";
+            data[`digital_${channel}_alarm`] = "threshold";
             break;
         case 0x06:
-            data[`magnet_${channel}`] = readInt16LE(bytes.slice(i, i + 2)) === 0 ? "closed" : "opened";
+            data[`digital_${channel}`] = readInt16LE(bytes.slice(i, i + 2)) === 0 ? "on" : "off";
             break;
         default:
             break;
