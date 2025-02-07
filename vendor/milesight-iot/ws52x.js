@@ -45,7 +45,7 @@ function Decoder(bytes, port) {
         }
         // STATE
         else if (channel_id === 0x08 && channel_type == 0x70) {
-            decoded.button_1 = bytes[i] == 1 ? "on" : "off";
+            decoded.digital_1 = bytes[i] == 1 ? "on" : "off";
             i += 1;
         } else {
             break;
