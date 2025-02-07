@@ -11,7 +11,7 @@ function decodeUplink(input) {
   
   if(mode!=2)
   {
-    decode.BatV= (input.bytes[0]<<8 | input.bytes[1])/1000;
+    decode.battery= (input.bytes[0]<<8 | input.bytes[1])/1000;
     if((input.bytes[2]==0x7f)&&(input.bytes[3]==0xff))
       decode.temperature_1= "NULL";
     else
