@@ -46,7 +46,7 @@ function Decoder(bytes, port) {
     }
     // PIR
     else if (channel_id === 0x05 && channel_type === 0x6A) {
-      decoded.activity_1 = readUInt16LE(bytes.slice(i, i + 2));
+      decoded.pir_1 = readUInt16LE(bytes.slice(i, i + 2));
       i += 2;
     }
     // LIGHT
